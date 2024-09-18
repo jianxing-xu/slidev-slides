@@ -1,0 +1,41 @@
+{
+  "type": "module",
+  "private": true,
+  "packageManager": "pnpm@9.10.0",
+  "scripts": {
+    "build": "rimraf dist && pnpm -r run build",
+    "dev": "esno scripts/picker.ts dev --open",
+    "typecheck": "vue-tsc --noEmit",
+    "lint": "eslint .",
+    "update": "esno scripts/redirects.ts",
+    "prepare": "git submodule update --init --recursive"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "catalog:",
+    "@eslint/config-inspector": "catalog:",
+    "@iconify/json": "catalog:",
+    "@slidev/cli": "catalog:",
+    "@slidev/client": "catalog:",
+    "@slidev/theme-default": "catalog:",
+    "@types/node": "catalog:",
+    "@types/prompts": "catalog:",
+    "@types/seedrandom": "catalog:",
+    "eslint": "catalog:",
+    "eslint-plugin-format": "catalog:",
+    "esno": "catalog:",
+    "execa": "catalog:",
+    "fast-glob": "catalog:",
+    "markdown-it-magic-link": "catalog:",
+    "playwright-chromium": "catalog:",
+    "pnpm": "catalog:",
+    "prettier-plugin-slidev": "catalog:",
+    "prompts": "catalog:",
+    "rimraf": "catalog:",
+    "seedrandom": "catalog:",
+    "taze": "catalog:",
+    "typescript": "catalog:",
+    "unocss": "catalog:",
+    "vue-router": "catalog:",
+    "vue-tsc": "catalog:"
+  }
+}
