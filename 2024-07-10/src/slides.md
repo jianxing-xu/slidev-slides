@@ -86,24 +86,22 @@ class: pl20
 ---
 
 <div grid="~ cols-2 gap-10" mt4>
+  <div>
+    <div op50 font-serif italic mb--1>Part II</div>
+    <h2><span op75>The Progressive Path</span><br>渐进之路</h2>
+    <img src="/part2-progressive.png" rounded-lg shadow-xl w-120 border="~ gray/25" mt-6 />
+  </div>
 
-<div>
-<div op50 font-serif italic mb--1>Part II</div>
-<h2><span op75>The Progressive Path</span><br>渐进之路</h2>
-<img src="/part2-progressive.png" rounded-lg shadow-xl w-120 border="~ gray/25" mt-6 />
-</div>
+  <div>
+    <div op50 font-serif italic mb--1>Part III</div>
+    <h2><span op75>Yak Shaving</span><br>薅牛毛</h2>
+    <img src="/part3-yak-shaving.png" rounded-lg shadow-xl w-120 border="~ gray/25" mt-6 />
+  </div>
+  </div>
 
-<div>
-<div op50 font-serif italic mb--1>Part III</div>
-<h2><span op75>Yak Shaving</span><br>薅牛毛</h2>
-<img src="/part3-yak-shaving.png" rounded-lg shadow-xl w-120 border="~ gray/25" mt-6 />
-</div>
+  <div mt-14 text-xl text-center v-click>
 
-</div>
-
-<div mt-14 text-xl text-center v-click>
-
-回放请见 [antfu.me](https://antfu.me)
+  回放请见 [antfu.me](https://antfu.me)
 
 </div>
 

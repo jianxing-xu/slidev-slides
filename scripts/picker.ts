@@ -25,6 +25,7 @@ async function startPicker(args: string[]) {
   args = args.filter(arg => arg !== '-y')
 
   if (result.folder) {
+    console.log(fileURLToPath(new URL(`../${result.folder}/src/slides.md`, import.meta.url)))
     if (args[0] === 'dev')
       execa('code', [fileURLToPath(new URL(`../${result.folder}/src/slides.md`, import.meta.url))])
     await execa('pnpm', ['run', ...args], {
