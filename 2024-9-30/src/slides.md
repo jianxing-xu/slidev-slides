@@ -10,7 +10,21 @@ title: Docker
 remoteAssets: true
 ---
 
-# Docker{style="font-size: 70px"}
+<img src="/docker.logo.svg" width="300" />
+
+<!--
+开场互动：
+
+1. 为什么要分享
+2. 上台的机会
+3. 未来的机会，隐形的机会（等待trigger的伏笔）
+4. 费曼学习法
+    - 输出倒逼输入
+    - 以教促学
+5. 为什么是Docker
+    - 实际情况
+    - 探究
+ -->
 
 ---
 layout: intro
@@ -57,13 +71,13 @@ layout: intro
 <div grid="~ cols-2 gap-10" mt10>
 <div v-click>
 
-  ### 开发环境
-  依托于统一的 Docker 容器标准，可以让生产环境与本地环境完全一致，不受操作系统影响，避免环境差异导致的问题
+  ### 环境
+  生产 与 本地 完全一致，不受操作系统影响，避免环境差异导致的问题
 </div>
 <div v-click>
 
-  ### 部署流程
-  通过预先编写好的 dockerfile 构建成镜像包，直接启动镜像
+  ### 部署/可用性/可观测性
+  通过预先编写好的 Dockerfile 构建成镜像包，直接启动，减少手动配置环境
 </div>
 <div v-click>
 
@@ -73,77 +87,163 @@ layout: intro
 <div v-click>
 
   ### 快速扩展与缩减
-  通过与k8s配合，实现根据负载情况快速启动容器实现集群
+  通过与集群平台配合，实现根据负载情况快速启动容器实现集群
 </div>
 </div>
-<!-- 依赖隔离的例子 -->
+<!--
+1. 开发： 只要本地能跑，生成就一定能跑，还能跨平台
+2. 部署： 自动重启，资源观测，减少环境配置
+3. 依赖隔离：e.g
+ -->
 
 ---
 glowSeed: 24
 title: 例子
 ---
 
-<h1 class="transition duration-500">一个例子</h1>
+<h1 class="transition duration-500">{{ $clicks <= 6 ? '一个例子' : '快速回滚' }}</h1>
 
-- 部署第一个app Node@16
+<div v-show="$clicks <= 6">
 
-<div grid="~ cols-2 gap-10">
-  <div v-click>
-    <li>1. 打包应用</li>
-    <li>2. 装环境，还必须得和本地一致或保持兼容</li>
-    <li>3. 配置环境e.g</li>
-    <li>4. 上传可运行文件</li>
-    <li>5. 启动应用</li>
+  - 部署一个app Node@16
+
+  <div grid="~ cols-2 gap-10">
+    <div v-click>
+      <li>1. 打包应用</li>
+      <li>2. 装环境，还必须得和本地一致或保持兼容</li>
+      <li>3. 配置环境e.g</li>
+      <li>4. 上传可运行文件</li>
+      <li>5. 启动应用</li>
+    </div>
+    <div v-click>
+      <li>使用Docker</li>
+      <li>1. 编写 Dockerfile</li>
+      <li>2. 执行 docker build</li>
+      <li>3. 执行 docker push/pull</li>
+      <li>4. 执行 docker run</li>
+    </div>
   </div>
-  <div v-click>
-    <li>使用Docker</li>
-    <li>1. 编写 Dockerfile</li>
-    <li>2. 执行 docker build</li>
-    <li>3. 执行 docker push/pull</li>
-    <li>4. 执行 docker run</li>
+
+  <div my-4 />
+
+  <v-click>
+
+  - 部署第二个app<div border inline-block px2>Node@21</div>
+  </v-click>
+
+  <div grid="~ cols-2 gap-10">
+    <div v-click>
+      <li>？？？？？？？</li>
+      <li>强行降低版本？</li>
+    </div>
+    <div v-click>
+      <li>使用Docker</li>
+      <li>1. 修改 Dockerfile 指定 node@21</li>
+      <li>其他不变</li>
+    </div>
   </div>
+
+  <v-click>
+
+  > 这还只是node上的差异，复杂应用中会有更多繁琐的配置
+  </v-click>
+
 </div>
 
-<div my-4 />
+<div v-click>在一次发布后生产出现 <b text-red>P(-9999) BUG</b> 问题，需要立刻回滚</div>
+
+<h1 v-click text-center mt10>Dcoker中怎么做？</h1>
 
 <v-click>
 
-- 部署第二个app<div border inline-block px2>Node@21</div>
-</v-click>
+```bash
+  docker stop app
 
-<div grid="~ cols-2 gap-10">
-  <div v-click>
-    <li>？？？？？？？</li>
-    <li>死路</li>
-    <li>强行降低版本？</li>
-  </div>
-  <div v-click>
-    <li>使用Docker</li>
-    <li>1. 编写 Dockerfile 指定 node@21</li>
-    <li>2. 执行 docker build</li>
-    <li>3. 执行 docker push/pull</li>
-    <li>4. 执行 docker run</li>
-  </div>
-</div>
+  # 然后
+  docker run app:[preTag]
 
-<v-click>
+  # 结束了
+```
 
-> 这还只是node上的差异，复杂应用中会有更多繁琐的配置
 </v-click>
 
 <!--
-区别 传统部署方案与docker，装环境，配置环境，本地运行没问题，线上有问题，差异，
+1. 区别 传统部署方案与docker，装环境，配置环境，本地运行没问题，线上有问题，差异，
 
-后期维护问题，依赖更新，系统版本更新等
+2. 后期维护问题，依赖更新，系统版本更新等
 
-负载重启
+3. 负载重启
 
-docker: 通过dockerfile，之后的所有操作可完全自动化
+4. docker: 通过Dockerfile，之后的所有操作可完全自动化
+
+5. tag快照，可快速恢复
 -->
 
 ---
 glowSeed: 34
 title: docker 核心概念
+layout: two-cols
 ---
 
-# Dcoekr 核心组件
+# Docker 核心组件
+
+<v-clicks>
+
+- Dcoker Engine{style="font-size: 24px; margin-top: 20px;"}
+  + Server: Daemon （守护进程）
+  + CLI: Command Line
+  + Rest API
+
+- Dcoker Images（镜像）{style="font-size: 24px; margin-top: 20px;"}
+  + 包含文件系统和运行环境的一个包
+
+- Dcoker Containers（容器）{style="font-size: 24px; margin-top: 20px;"}
+  + 是镜像运行后的实例，一个隔离的运行环境
+  + 可以在任何支持Docker的平台上运行
+
+</v-clicks>
+
+::right::
+
+<v-clicks>
+
+- Docker Registry（镜像仓库）{style="font-size: 24px; margin-top: 20px;"}
+  + 类似于 npm源，用于存储和分发Docker镜像
+  + 公共的有 docker hub
+  + 可以搭建私有镜像源
+
++ Docker Compose
++ Docker Volumes
++ Docker Networking
++ Docker Swarm
++ ...
+</v-clicks>
+
+---
+glowSeed: 34
+title: 架构图
+layout: center
+---
+
+# 架构图
+
+## ![](https://docs.docker.com/get-started/images/docker-architecture.webp)
+
+<!--
+1. 在 client 端执行命令后的交互流程
+2. Daemon
+-->
+
+---
+glowSeed: 34
+title: 上手体验
+---
+
+# 上手体验
+
+## 安装
+
+```bash
+# ubuntu case
+apt-get install docker.io
+```
